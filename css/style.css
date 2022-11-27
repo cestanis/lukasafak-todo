@@ -1,0 +1,18 @@
+h1 {
+    color: turquoise;
+    text-align: center;
+}
+
+.userPrompt {
+    background-color: grey;
+    text-align: center;
+}
+
+.todos {
+    text-align: center;
+    padding-top: 5vh;
+}
+
+p {
+    text-align: center;
+}
