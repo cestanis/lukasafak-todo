@@ -1,10 +1,23 @@
+:root {
+    --textColor: #000000;
+    --butBackgroundColor: #FFFFFF;
+    --inBackgroundColor: #FFFFFF;
+}
+
+* {
+    color: var(--textColor);
+}
+
+body {
+    background-color: rgb(255, 194, 194);
+}
+
 h1 {
     color: turquoise;
     text-align: center;
 }
 
 .userPrompt {
-    background-color: grey;
     text-align: center;
 }
 
@@ -15,4 +28,19 @@ h1 {
 
 p {
     text-align: center;
+}
+
+.nightMode {
+    text-align: center;
+    padding-top: 5vh;
+}
+
+#saveButton, #butNightMode {
+    background-color: var(--butBackgroundColor);
+    padding: 1.5mm;
+    
+}
+
+#inputUserPrompt {
+    background-color: var(--inBackgroundColor);
 }
