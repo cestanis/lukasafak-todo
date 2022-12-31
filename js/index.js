@@ -1,6 +1,11 @@
 "use strict";
 
+// http://127.0.0.1:5500/index.html
+
+let modal = document.getElementById("contextMenu");
+
 window.onload = fOnLoad;
+
 
 /***************************************** 
  * Event listening:
@@ -15,8 +20,9 @@ function fSaveToDo() {
     let inputText = document.getElementById("inputUserPrompt").value;
     if (inputText != "") {
         const newPar = document.createElement("p");
-        newPar.addEventListener("click", fCrossText)
-        newPar.addEventListener("dblclick", fDelText)
+        newPar.addEventListener("click", fCrossText);
+        newPar.addEventListener("dblclick", fDelText);
+        newPar.addEventListener("contextmenu", fContextMenu);
 
         // Use createTextNode and .appendChild or just .innerText
         //const newContent = document.createTextNode(inputText);
@@ -29,8 +35,8 @@ function fSaveToDo() {
 }
 
 // Trigger button click on the Enter key in text box
-function fOnKeyPress(event) {
-    if (event.key === "Enter") {
+function fOnKeyPress(e) {
+    if (e.key === "Enter") {
         document.getElementById("saveButton").click();
     }
 }
@@ -42,6 +48,21 @@ function fCrossText(e) {
 
 function fDelText(e) {
     document.getElementById("divToDos").removeChild(e.target);
+}
+
+function fContextMenu(e) {
+    e.preventDefault();
+    console.log("Context Menu");
+
+    const x = e.clientX;
+    const y = e.clientY;
+    console.log(x, y);
+    
+    console.log(modal);
+    modal.classList.remove("hidden");
+    modal.style.top = y + "px";
+    modal.style.left = x + "px";
+
 }
 
 // Toggle Night Mode
@@ -66,4 +87,6 @@ function fNightModeToggle(e) {
  * - Rearrange order (drag/drop or arrows)
  * - Right-click to change properties
  * - Burger Menu
+ * - Filter/sort with tags(?)
+ * - On hover
 *****************************************/

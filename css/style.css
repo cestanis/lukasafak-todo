@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-    color: turquoise;
+    color: #6495ED;
     text-align: center;
 }
 
@@ -35,10 +35,26 @@ p {
     padding-top: 5vh;
 }
 
+.hidden {
+    display: None;
+}
+
+#contextMenu {
+    position: absolute;
+    background-color: #FFFFFF;
+    width: 200px;
+    padding: 0;
+    margin: 0;
+    box-shadow:5px 5px #909090;
+}
+
+#contextList {
+    list-style: none;
+}
+
 #saveButton, #butNightMode {
     background-color: var(--butBackgroundColor);
     padding: 1.5mm;
-    
 }
 
 #inputUserPrompt {
