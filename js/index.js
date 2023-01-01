@@ -2,7 +2,7 @@
 
 // http://127.0.0.1:5500/index.html
 
-let modal = document.getElementById("contextMenu");
+let modal = document.getElementById("iContextMenu");
 
 window.onload = fOnLoad;
 
@@ -45,7 +45,7 @@ function fOnKeyPress(e) {
 function fEscPress(e) {
     if (e.key === "Escape") { 
         if ( !(modal.classList.contains("hidden")) ) {
-            fContextMenuClose();
+            fContextMenuClose(null);
         }
     }
 }
@@ -65,11 +65,19 @@ function fContextMenuOpen(e) {
     modal.classList.remove("hidden");
     modal.style.top = y + "px";
     modal.style.left = x + "px";
-
+    document.addEventListener("mousedown", fContextMenuClose);
+    window.addEventListener("blur", fContextMenuClose.bind(null, null)); // Regarding two null, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#parameters
 }
 
-function fContextMenuClose() {
-    modal.classList.add("hidden");
+function fContextMenuClose(e) {
+    if (e === null) {
+        modal.classList.add("hidden");
+    }
+    else {
+        if (!(e.target.id.includes("Context"))) { 
+            modal.classList.add("hidden");
+        }
+    }   
 }
 
 // Toggle Night Mode
