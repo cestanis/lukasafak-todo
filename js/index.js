@@ -14,6 +14,7 @@ function fOnLoad() {
     document.getElementById("saveButton").addEventListener("click", fSaveToDo);
     document.getElementById("inputUserPrompt").addEventListener("keyup", fOnKeyPress); // Todo: Why are we using keyup instead of click?
     document.getElementById("butNightMode").addEventListener("click", fNightModeToggle);
+    document.addEventListener("keyup", fEscPress);
 }
 
 function fSaveToDo() {
@@ -22,7 +23,7 @@ function fSaveToDo() {
         const newPar = document.createElement("p");
         newPar.addEventListener("click", fCrossText);
         newPar.addEventListener("dblclick", fDelText);
-        newPar.addEventListener("contextmenu", fContextMenu);
+        newPar.addEventListener("contextmenu", fContextMenuOpen);
 
         // Use createTextNode and .appendChild or just .innerText
         //const newContent = document.createTextNode(inputText);
@@ -41,8 +42,15 @@ function fOnKeyPress(e) {
     }
 }
 
+function fEscPress(e) {
+    if (e.key === "Escape") { 
+        if ( !(modal.classList.contains("hidden")) ) {
+            fContextMenuClose();
+        }
+    }
+}
+
 function fCrossText(e) {
-    console.log(e);
     e.target.style.textDecoration = "line-through";
 }
 
@@ -50,19 +58,18 @@ function fDelText(e) {
     document.getElementById("divToDos").removeChild(e.target);
 }
 
-function fContextMenu(e) {
+function fContextMenuOpen(e) {
     e.preventDefault();
-    console.log("Context Menu");
-
     const x = e.clientX;
     const y = e.clientY;
-    console.log(x, y);
-    
-    console.log(modal);
     modal.classList.remove("hidden");
     modal.style.top = y + "px";
     modal.style.left = x + "px";
 
+}
+
+function fContextMenuClose() {
+    modal.classList.add("hidden");
 }
 
 // Toggle Night Mode
