@@ -39,6 +39,15 @@ p {
     display: None;
 }
 
+.cMenuItem:hover { /* :hover = CSS pseudo-class */
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: bold;
+}
+
 #iContextMenu {
     position: absolute;
     background-color: #FFFFFF;

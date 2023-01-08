@@ -21,6 +21,8 @@ function fSaveToDo() {
     let inputText = document.getElementById("inputUserPrompt").value;
     if (inputText != "") {
         const newPar = document.createElement("p");
+        newPar.setAttribute("id", inputText);
+        newPar.setAttribute("tag", "org_tag");
         newPar.addEventListener("click", fCrossText);
         newPar.addEventListener("dblclick", fDelText);
         newPar.addEventListener("contextmenu", fContextMenuOpen);
@@ -67,17 +69,39 @@ function fContextMenuOpen(e) {
     modal.style.left = x + "px";
     document.addEventListener("mousedown", fContextMenuClose);
     window.addEventListener("blur", fContextMenuClose.bind(null, null)); // Regarding two null, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#parameters
+    // add event listener click to every list item
+    //let tagTarget = e.target.id;
+    console.log("fContextMenuOpen -> addEventListener")
+    document.getElementById("iContextItem1").addEventListener("click", fAddTag.bind(null, e)); /////////  WIRD MEHRFACH HINZUGEFUEGT. WIR MUESSEN EINEN WEG FINDEN, DEN EVENTLISTENER ZU ENTFERNEN
 }
 
 function fContextMenuClose(e) {
     if (e === null) {
         modal.classList.add("hidden");
+        // add event listener click to every list item
+        document.getElementById("iContextItem1").removeEventListener("click", fAddTag.bind(null, e));
+        console.log("Eventlistener removed 1")
     }
     else {
         if (!(e.target.id.includes("Context"))) { 
             modal.classList.add("hidden");
+            // add event listener click to every list item
+            document.getElementById("iContextItem1").removeEventListener("click", fAddTag.bind(null, e));
+            console.log("Eventlistener removed 2")
         }
     }   
+}
+
+function fAddTag(oldE, e) { // 
+    console.log(oldE);
+    fContextMenuClose(null);
+    let tagArray = document.getElementById(oldE.target.id).getAttribute("tag").split(",");
+    console.log(tagArray);
+    tagArray.push("pushedTag");
+    //document.getElementById(oldE.target.id).setAttribute("tag", tagArray.join(","));
+    document.getElementById(oldE.target.id).classList.add("bold");
+    // document.getElementById(oldE.target.id).getAttribute("tag").concat
+    document.getElementById("iContextItem1").removeEventListener("click", fAddTag.bind(null, oldE));
 }
 
 // Toggle Night Mode
@@ -94,6 +118,7 @@ function fNightModeToggle(e) {
         document.querySelector(":root").style.setProperty("--inBackgroundColor", "white");
     }
 }
+
 
 /***************************************** 
  * Features for version 2.0
